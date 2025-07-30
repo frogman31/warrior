@@ -6,7 +6,7 @@ export default async function fetchBaseFeed(retries = 5, delay = 1500) {
 
   for (let i = 0; i < retries; i++) {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 detik
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
 
     try {
       const res = await fetch(url, {
@@ -18,7 +18,7 @@ export default async function fetchBaseFeed(retries = 5, delay = 1500) {
         signal: controller.signal
       });
 
-      clearTimeout(timeoutId); // clear timeout kalau sukses
+      clearTimeout(timeoutId);
       if (!res.ok) throw new Error(`HTTP error ${res.status}`);
       return await res.json();
     } catch (err) {

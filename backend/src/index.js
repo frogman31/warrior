@@ -10,7 +10,7 @@ const port = 3001;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Create output directory if not exists
+
 const outputDir = path.join(__dirname, '../output');
 if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir);
@@ -18,9 +18,7 @@ if (!fs.existsSync(outputDir)) {
 
 const outputFilePath = path.join(outputDir, 'tokens.json');
 
-// ----------------------------
-// ✅ Fungsi: Ambil data Base Feed
-// ----------------------------
+
 async function fetchBaseFeed() {
   const url = 'https://api.zora.co/baseapp/feed';
   const res = await fetch(url);
@@ -29,9 +27,7 @@ async function fetchBaseFeed() {
   return json.feed;
 }
 
-// ----------------------------
-// ✅ Fungsi: Ambil metadata dari Zora
-// ----------------------------
+
 async function fetchZoraMetadata(contract, tokenId) {
   const url = `https://api.zora.co/token/${contract}/${tokenId}`;
   const res = await fetch(url);
@@ -40,9 +36,7 @@ async function fetchZoraMetadata(contract, tokenId) {
   return json.token;
 }
 
-// ----------------------------
-// ✅ Proses utama: Gabungkan data
-// ----------------------------
+
 async function processAndSaveTokens() {
   try {
     console.log('🚀 Mengambil data Base Feed...');
@@ -73,12 +67,10 @@ async function processAndSaveTokens() {
   }
 }
 
-// Jalankan fetch awal
+
 processAndSaveTokens();
 
-// ----------------------------
-// ✅ Serve statis folder output di /api
-// ----------------------------
+
 app.use('/api', express.static(outputDir));
 
 app.listen(port, () => {
